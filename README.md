@@ -31,3 +31,21 @@ While C lacks native OOP constructs like classes or inheritance, this implementa
 - The `Map` structure functions like a class, encapsulating both data and methods.
 - Function pointers simulate method calls.
 - The `create_map` function acts as a constructor, initializing the "object" with its data and methods.
+
+## Commands 
+
+1. **Clean the Project**:
+   ```bash
+   make clean
+   ```
+
+2. **Build the Project**:
+   ```bash
+   make 
+   ```
+
+3. **Run the tests**:
+   ```bash
+   make run
+   ```
+

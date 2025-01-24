@@ -31,9 +31,9 @@ struct Map {
     void (*print)(Map *, const char *);
 };
 
-static void map_init(Map *map);
-static int map_put(Map *map, char *key, void *value);
-static void *map_get(Map *map, char *key);
+static void init(Map *map);
+static int put(Map *map, char *key, void *value);
+static void *get(Map *map, char *key);
 static int map_remove(Map *map, char *key);
 static void map_delete(Map *map);
 static void map_print(Map *map, const char *printing_format);
@@ -54,13 +54,13 @@ static size_t hashmap_hash(char *key){
     return hash%HASHMAP_SIZE;
 }
 
-static void map_init(Map *map){
+static void init(Map *map){
     for(size_t i=0;i<HASHMAP_SIZE;i++) {
         map->hashmap[i]=NULL;
     }
 }
 
-static int map_put(Map *map, char *key, void *value){
+static int put(Map *map, char *key, void *value){
     size_t index=hashmap_hash(key);
     Node *current=malloc(sizeof(Node));
     check_null(current);
@@ -73,13 +73,13 @@ static int map_put(Map *map, char *key, void *value){
     return 0;
 }
 
-static void *map_get(Map *map, char *key){
-    size_t index=hashmap_hash(key);
-    Node *current=map->hashmap[index];
-    while(current!=NULL && strcmp(current->key,key)!= 0){
-        current=current->next;
+static void *get(Map *map, char *key){
+    size_t index = hashmap_hash(key);
+    Node *current = map->hashmap[index];
+    while (current != NULL && strcmp(current->key, key) != 0) {
+        current = current->next;
     }
-    return (current==NULL)?NULL:current->value;
+    return (current == NULL) ? NULL : current->value; 
 }
 
 static int map_remove(Map *map, char *key){
@@ -135,17 +135,6 @@ static void map_print(Map *map, const char *printing_format){
         }
         printf("NULL\n");
     }
-}
-
-
-void create_map(Map *map){
-    map->init=map_init;
-    map->put=map_put;
-    map->get=map_get;
-    map->remove=map_remove;
-    map->delete=map_delete;
-    map->print=map_print;
-    map->init(map);
 }
 
 #endif
